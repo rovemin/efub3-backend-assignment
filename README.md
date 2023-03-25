@@ -1,12 +1,8 @@
-<td align="center"><img src = "https://github.com/EFUB.png"></td>
-
 # 💚 EFUB 3기 백엔드 과제 제출 Repository 💚
 
-### 과제 제출 방법
-
-1. 과제 레포지토리에는 개발자별 과제 제출을 위한 브랜치를 생성합니다.
-    1. 브랜치 이름 규칙: `member/{깃허브 계정명}`
-    2. 계정명이 10자 이상일 경우, 첫글자부터 7개 알파벳으로 줄여쓰기를 허용합니다.
-2. 주차별 과제 리뷰어를 PR에 할당합니다.
-3. **과제 레포지토리가 공개되면, 개발자 멤버들은 origin 레포를 fork합니다.**
-4. **매주 금요일 자정 전까지 origin 레포지토리에 PR로 과제를 제출합니다.**
+<table border="1" cellspacing="0" cellpadding="0" width="100%">
+    <tr width="100%">
+        <td width="25%" align="center"><img src = "https://github.com/EFUB.png"></td>
+    </tr>
+   </tr>
+</table>
