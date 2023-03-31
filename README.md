@@ -2,13 +2,7 @@
 
 
 ## 🍀 Community ERD
-
-[사진]
-
-## 🍀 Community query
-
-[사진]
+![ERD](img/Community_ERD.png)
 
 ## 🍀 Community API 문서 
-
-[노션 링크 첨부]
+https://painted-catboat-bae.notion.site/api-08bdc3ff15ff47d6ac46c4d2b62e8280
