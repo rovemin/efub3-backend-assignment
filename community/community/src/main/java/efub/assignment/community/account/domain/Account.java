@@ -54,4 +54,8 @@ public class Account extends BaseTimeEntity {
         this.bio = bio;
         this.nickname = nickname;
     }
+
+    public void withdrawAccount() {
+        this.status = AccountStatus.UNREGISTERED;
+    }
 }

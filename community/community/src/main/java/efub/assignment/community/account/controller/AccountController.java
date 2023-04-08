@@ -42,4 +42,12 @@ public class AccountController {
         Account findAccount = accountService.findAccountById(id);
         return AccountResponseDto.from(findAccount);
     }
+
+    /* member 삭제 (휴면 계정) */
+    @PatchMapping("/{accountId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String withdraw(@PathVariable long accountId) {
+        accountService.withdraw(accountId);
+        return "삭제가 완료되었습니다.";
+    }
 }
