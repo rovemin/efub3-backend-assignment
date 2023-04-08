@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)  // Spring Date JPA에서 자동으로 시간에 대한 값을 넣는 기능을 포함시킨다.
-public abstract class BaseTimeEntity {
+public class BaseTimeEntity {
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdDate;
