@@ -16,6 +16,7 @@ import static efub.assignment.community.account.domain.AccountStatus.REGISTERED;
 public class Account extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id", updatable = false)
     private Long accountId;
 
     @Column(nullable = false, length = 60)
@@ -33,18 +34,21 @@ public class Account extends BaseTimeEntity {
     @Column(nullable = false, length = 16)
     private Long studentId;
 
+    private String bio;
+
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
     @Builder
 
-    public Account(Long accountId, String email, String password, String nickname, String university, Long studentId) {
+    public Account(Long accountId, String email, String password, String nickname, String university, Long studentId, String bio) {
         this.accountId = accountId;
         this.email = email;
         this.encodedPassword = password;
         this.nickname = nickname;
         this.university = university;
         this.studentId = studentId;
+        this.bio = bio;
         this.status = REGISTERED;
     }
 }
