@@ -1,6 +1,7 @@
 package efub.assignment.community.account.service;
 
 import efub.assignment.community.account.domain.Account;
+import efub.assignment.community.account.dto.AccountUpdateRequestDto;
 import efub.assignment.community.account.dto.SignUpRequestDto;
 import efub.assignment.community.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,11 @@ public class AccountService {
     public Account findAccountById(Long id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("해당 id를 가진 Account를 찾을 수 없습니다. id=" + id));
+    }
+
+    public Long update(Long accountId, AccountUpdateRequestDto requestDto) {
+        Account account = findAccountById(accountId);
+        account.updateAccount(requestDto.getBio(), requestDto.getNickname());
+        return account.getAccountId();
     }
 }

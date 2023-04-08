@@ -49,4 +49,9 @@ public class Account extends BaseTimeEntity {
         this.bio = bio;
         this.status = REGISTERED;
     }
+
+    public void updateAccount(String bio, String nickname) {
+        this.bio = bio;
+        this.nickname = nickname;
+    }
 }

@@ -2,6 +2,7 @@ package efub.assignment.community.account.controller;
 
 import efub.assignment.community.account.domain.Account;
 import efub.assignment.community.account.dto.AccountResponseDto;
+import efub.assignment.community.account.dto.AccountUpdateRequestDto;
 import efub.assignment.community.account.dto.SignUpRequestDto;
 import efub.assignment.community.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,15 @@ public class AccountController {
     @ResponseStatus(value = HttpStatus.OK)
     public AccountResponseDto getAccount(@PathVariable Long accountId) {
         Account findAccount = accountService.findAccountById(accountId);
+        return AccountResponseDto.from(findAccount);
+    }
+
+    /* member 수정 */
+    @PatchMapping("/profile/{accountId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public AccountResponseDto update(@PathVariable final Long accountId, @RequestBody @Valid final AccountUpdateRequestDto requestDto) {
+        Long id = accountService.update(accountId, requestDto);
+        Account findAccount = accountService.findAccountById(id);
         return AccountResponseDto.from(findAccount);
     }
 }
