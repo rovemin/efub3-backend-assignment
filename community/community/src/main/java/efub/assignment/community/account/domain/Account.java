@@ -32,7 +32,7 @@ public class Account extends BaseTimeEntity {
     private String university;
 
     @Column(nullable = false, length = 16)
-    private Long studentId;
+    private String studentId;
 
     private String bio;
 
@@ -40,8 +40,7 @@ public class Account extends BaseTimeEntity {
     private AccountStatus status;
 
     @Builder
-    public Account(Long accountId, String email, String password, String nickname, String university, Long studentId, String bio) {
-        this.accountId = accountId;
+    public Account(String email, String password, String nickname, String university, String studentId, String bio) {
         this.email = email;
         this.encodedPassword = password;
         this.nickname = nickname;
