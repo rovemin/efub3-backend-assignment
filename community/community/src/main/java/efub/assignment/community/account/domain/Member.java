@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import static efub.assignment.community.account.domain.AccountStatus.REGISTERED;
+import static efub.assignment.community.account.domain.MemberStatus.REGISTERED;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Account extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id", updatable = false)
-    private Long accountId;
+    @Column(name = "member_id", updatable = false)
+    private Long memberId;
 
     @Column(nullable = false, length = 60)
     private String email;
@@ -37,10 +37,10 @@ public class Account extends BaseTimeEntity {
     private String bio;
 
     @Enumerated(EnumType.STRING)
-    private AccountStatus status;
+    private MemberStatus status;
 
     @Builder
-    public Account(String email, String password, String nickname, String university, String studentId, String bio) {
+    public Member(String email, String password, String nickname, String university, String studentId, String bio) {
         this.email = email;
         this.encodedPassword = password;
         this.nickname = nickname;
@@ -50,12 +50,12 @@ public class Account extends BaseTimeEntity {
         this.status = REGISTERED;
     }
 
-    public void updateAccount(String bio, String nickname) {
+    public void updateMember(String bio, String nickname) {
         this.bio = bio;
         this.nickname = nickname;
     }
 
-    public void withdrawAccount() {
-        this.status = AccountStatus.UNREGISTERED;
+    public void withdrawMember() {
+        this.status = MemberStatus.UNREGISTERED;
     }
 }

@@ -1,8 +1,8 @@
 package efub.assignment.community.account.repository;
 
-import efub.assignment.community.account.domain.Account;
+import efub.assignment.community.account.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
     Boolean existsByEmail(String email);
 }

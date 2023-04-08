@@ -1,6 +1,6 @@
 package efub.assignment.community.account.dto;
 
-import efub.assignment.community.account.domain.Account;
+import efub.assignment.community.account.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,8 +41,8 @@ public class SignUpRequestDto {
         this.studentId = studentId;
     }
 
-    public Account toEntity() {
-        return Account.builder()
+    public Member toEntity() {
+        return Member.builder()
                 .email(this.email)
                 .password(this.password)
                 .nickname(this.nickname)
