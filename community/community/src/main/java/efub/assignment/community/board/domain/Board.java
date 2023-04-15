@@ -20,10 +20,10 @@ public class Board extends BaseTimeEntity {
     @Column
     private String boardName;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String notice;
 
     @ManyToOne
