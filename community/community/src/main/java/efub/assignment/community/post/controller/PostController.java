@@ -31,7 +31,7 @@ public class PostController {
         List<Post> postList = postService.findPostList();
         List<PostResponseDto> responseDtoList = new ArrayList<>();
 
-        for (Post post : postList) {    // 스트림으로 한 줄 코드로 바꿀 수 있음
+        for (Post post : postList) {    // 스트림으로 한 줄 코드로 바꿀 수 있음 postList.stream().map(PostResponseDto::new).forEach(responseDtoList::add);
             responseDtoList.add(new PostResponseDto(post));
         }
         return responseDtoList;
