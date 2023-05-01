@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class PostRequestDto {
     private Long boardId;
     private Long memberId;
-    private String selectDisplayAuthor;
+    private Boolean isPrivate;
     private String title;
     private String content;
 }

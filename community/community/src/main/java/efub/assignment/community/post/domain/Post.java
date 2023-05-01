@@ -23,7 +23,7 @@ public class Post extends BaseTimeEntity {
     private Board board;
 
     @Column
-    private String selectDisplayAuthor;
+    private Boolean isPrivate;  // true면 익명, false면 닉네임 공개
 
     @Column
     private String title;
@@ -36,17 +36,17 @@ public class Post extends BaseTimeEntity {
     private Member writer;
 
     @Builder
-    public Post(Long postId, Board board, String selectDisplayAuthor, String title, String content, Member writer) {
+    public Post(Long postId, Board board, Boolean isPrivate, String title, String content, Member writer) {
         this.postId = postId;
         this.board = board;
-        this.selectDisplayAuthor = selectDisplayAuthor;
+        this.isPrivate = isPrivate;
         this.title = title;
         this.content = content;
         this.writer = writer;
     }
 
     public void updatePost(PostModifyRequestDto requestDto) {
-        this.selectDisplayAuthor = requestDto.getSelectDisplayAuthor();
+        this.isPrivate = requestDto.getIsPrivate();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }

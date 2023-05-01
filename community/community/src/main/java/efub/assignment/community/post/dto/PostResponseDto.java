@@ -12,7 +12,7 @@ public class PostResponseDto {
     private Long postId;
     private String boardName;
     private String writerName;
-    private String selectDisplayAuthor;
+    private Boolean isPrivate;
     private String title;
     private String content;
     private LocalDateTime createdDate;
@@ -22,7 +22,7 @@ public class PostResponseDto {
         this.postId = post.getPostId();
         this.boardName = post.getBoard().getBoardName();
         this.writerName = post.getWriter().getNickname();
-        this.selectDisplayAuthor = post.getSelectDisplayAuthor();
+        this.isPrivate = post.getIsPrivate();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.createdDate = post.getCreatedDate();

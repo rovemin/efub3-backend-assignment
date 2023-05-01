@@ -6,7 +6,7 @@ import lombok.Getter;
 public class PostModifyRequestDto {
     private Long boardId;
     private Long memberId;
-    private String selectDisplayAuthor;
+    private Boolean isPrivate;
     private String title;
     private String content;
 }
