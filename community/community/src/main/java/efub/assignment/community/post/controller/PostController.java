@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/posts")
@@ -20,35 +21,30 @@ public class PostController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public PostResponseDto postAdd(@RequestBody PostRequestDto requestDto) {
-        Post post = postService.addPost(requestDto);
-        return new PostResponseDto(post);
+    public PostResponseDto postAdd(@RequestBody PostRequestDto postRequestDto) {
+        Post post = postService.addPost(postRequestDto);
+        return PostResponseDto.from(post);
     }
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<PostResponseDto> postListFind() {
         List<Post> postList = postService.findPostList();
-        List<PostResponseDto> responseDtoList = new ArrayList<>();
-
-        for (Post post : postList) {    // 스트림으로 한 줄 코드로 바꿀 수 있음 postList.stream().map(PostResponseDto::new).forEach(responseDtoList::add);
-            responseDtoList.add(new PostResponseDto(post));
-        }
-        return responseDtoList;
+        return postList.stream().map(PostResponseDto::from).collect(Collectors.toList());
     }
 
     @GetMapping("/{postId}")
     @ResponseStatus(value = HttpStatus.OK)
     public PostResponseDto postFind(@PathVariable Long postId) {
         Post post = postService.findPost(postId);
-        return new PostResponseDto(post);
+        return PostResponseDto.from(post);
     }
 
     @PutMapping("/{postId}")
     @ResponseStatus(value = HttpStatus.OK)
     public PostResponseDto postModify(@PathVariable Long postId, @RequestBody PostModifyRequestDto requestDto) {
         Post post = postService.modifyPost(postId, requestDto);
-        return new PostResponseDto(post);
+        return PostResponseDto.from(post);
     }
 
     @DeleteMapping("/{postId}/{memberId}")
