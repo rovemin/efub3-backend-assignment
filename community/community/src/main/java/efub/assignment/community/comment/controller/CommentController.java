@@ -1,21 +1,14 @@
 package efub.assignment.community.comment.controller;
 
-import efub.assignment.community.board.domain.Board;
-import efub.assignment.community.board.dto.BoardRequestDto;
-import efub.assignment.community.board.dto.BoardResponseDto;
 import efub.assignment.community.comment.domain.Comment;
-import efub.assignment.community.comment.dto.CommentModifyRequestDto;
 import efub.assignment.community.comment.dto.CommentRequestDto;
 import efub.assignment.community.comment.dto.CommentResponseDto;
 import efub.assignment.community.comment.service.CommentService;
-import efub.assignment.community.member.domain.Member;
-import efub.assignment.community.post.domain.Post;
-import efub.assignment.community.post.dto.PostModifyRequestDto;
-import efub.assignment.community.post.dto.PostRequestDto;
-import efub.assignment.community.post.dto.PostResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor    // 생성자를 통한 의존관계 주입
@@ -26,8 +19,9 @@ public class CommentController {
     // 댓글 수정
     @PutMapping("/{commentId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CommentResponseDto commentModify(@PathVariable Long commentId, @RequestBody CommentModifyRequestDto requestDto) {
-        Comment comment = commentService.modifyComment(commentId, requestDto);
+    public CommentResponseDto updatePostComment(@PathVariable final Long commentId, @RequestBody @Valid final CommentRequestDto requestDto) {
+        commentService.updateComment(requestDto, commentId);
+        Comment comment = commentService.findCommentById(commentId);
         return CommentResponseDto.of(comment);
     }
     

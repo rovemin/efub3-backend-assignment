@@ -1,14 +1,11 @@
 package efub.assignment.community.comment.service;
 
 import efub.assignment.community.comment.domain.Comment;
-import efub.assignment.community.comment.dto.CommentModifyRequestDto;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.comment.dto.CommentRequestDto;
 import efub.assignment.community.comment.repository.CommentRepository;
-import efub.assignment.community.member.dto.MemberUpdateRequestDto;
 import efub.assignment.community.member.service.MemberService;
 import efub.assignment.community.post.domain.Post;
-import efub.assignment.community.post.dto.PostModifyRequestDto;
 import efub.assignment.community.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -54,10 +51,8 @@ public class CommentService {
     }
 
     // 댓글 수정
-    public Comment modifyComment(Long commentId, CommentModifyRequestDto requestDto) {
-        Comment comment = commentRepository.findByCommentIdAndWriter_MemberId(commentId, requestDto.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
-        comment.updateComment(requestDto);
-        return comment;
+    public void updateComment(CommentRequestDto requestDto, Long commentId) {
+        Comment comment = findCommentById(commentId);
+        comment.updateComment(requestDto.getContent());
     }
 }

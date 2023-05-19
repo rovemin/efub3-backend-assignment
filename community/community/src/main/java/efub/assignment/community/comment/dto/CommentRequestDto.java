@@ -4,6 +4,7 @@ import efub.assignment.community.comment.domain.Comment;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.post.domain.Post;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,12 @@ public class CommentRequestDto {
     
     @NotNull(message = "내용을 입력해주세요.")
     private String content;
+
+    @Builder
+    public CommentRequestDto(Long memberId, String content) {
+        this.memberId = memberId;
+        this.content = content;
+    }
 
     public Comment toEntity(Post post, Member writer) {
         return Comment.builder()

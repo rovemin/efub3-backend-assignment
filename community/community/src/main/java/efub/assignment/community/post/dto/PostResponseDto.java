@@ -8,25 +8,25 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class PostResponseDto {
     private Long postId;
-    private String boardName;
-    private String writerName;
-    private Boolean isPrivate;
+    private Long boardId;
     private String title;
     private String content;
+    private Long writerId;
+    private Boolean isPrivate;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public PostResponseDto(Long postId, String boardName, String writerName, Boolean isPrivate,
-                           String title, String content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public PostResponseDto(Long postId, Long boardId, String title, String content,
+                           Long writerId, Boolean isPrivate, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.postId = postId;
-        this.boardName = boardName;
-        this.writerName = writerName;
-        this.isPrivate = isPrivate;
+        this.boardId = boardId;
         this.title = title;
         this.content = content;
+        this.writerId = writerId;
+        this.isPrivate = isPrivate;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }
@@ -34,11 +34,11 @@ public class PostResponseDto {
     public static PostResponseDto from(Post post) {
         return new PostResponseDto(
                 post.getPostId(),
-                post.getBoard().getBoardName(),
-                post.getWriter().getNickname(),
-                post.getIsPrivate(),
+                post.getBoard().getBoardId(),
                 post.getTitle(),
                 post.getContent(),
+                post.getWriter().getMemberId(),
+                post.getIsPrivate(),
                 post.getCreatedDate(),
                 post.getModifiedDate());
     }

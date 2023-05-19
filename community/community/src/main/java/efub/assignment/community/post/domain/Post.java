@@ -27,9 +27,6 @@ public class Post extends BaseTimeEntity {
     private Board board;
 
     @Column
-    private Boolean isPrivate;  // true면 익명, false면 닉네임 공개
-
-    @Column
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -38,6 +35,9 @@ public class Post extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member writer;
+
+    @Column
+    private Boolean isPrivate;  // true면 익명, false면 닉네임 공개
 
     /*
     mappedBy: 연관 관계의 주인(Owner)
@@ -48,18 +48,19 @@ public class Post extends BaseTimeEntity {
     private List<Comment> commentList = new ArrayList<>();
 
     @Builder
-    public Post(Long postId, Board board, Boolean isPrivate, String title, String content, Member writer) {
+    public Post(Long postId, Board board, String title, String content, Member writer, Boolean isPrivate) {
         this.postId = postId;
         this.board = board;
-        this.isPrivate = isPrivate;
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.isPrivate = isPrivate;
+
     }
 
     public void updatePost(PostModifyRequestDto requestDto) {
-        this.isPrivate = requestDto.getIsPrivate();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+        this.isPrivate = requestDto.getIsPrivate();
     }
 }

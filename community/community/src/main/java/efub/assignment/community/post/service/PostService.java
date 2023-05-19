@@ -1,5 +1,7 @@
 package efub.assignment.community.post.service;
 
+import efub.assignment.community.board.domain.Board;
+import efub.assignment.community.board.dto.BoardRequestDto;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
 import efub.assignment.community.member.service.MemberService;
@@ -17,11 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
     private final MemberService memberService;
 
     @Transactional
     public Post addPost(PostRequestDto requestDto) {
-        Member writer = memberService.findMemberById(requestDto.getMemberId());
+        Member writer = memberRepository.findById(requestDto.getWriterId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
 
         return postRepository.save(
                 Post.builder()
@@ -51,7 +55,7 @@ public class PostService {
     }
 
     public Post modifyPost(Long postId, PostModifyRequestDto requestDto) {
-        Post post = postRepository.findByPostIdAndAndWriter_MemberId(postId, requestDto.getMemberId())
+        Post post = postRepository.findByPostIdAndAndWriter_MemberId(postId, requestDto.getWriterId())
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
         post.updatePost(requestDto);
         return post;

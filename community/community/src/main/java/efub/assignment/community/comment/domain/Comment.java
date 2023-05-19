@@ -1,10 +1,8 @@
 package efub.assignment.community.comment.domain;
 
-import efub.assignment.community.comment.dto.CommentModifyRequestDto;
 import efub.assignment.community.global.entity.BaseTimeEntity;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.post.domain.Post;
-import efub.assignment.community.post.dto.PostModifyRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,7 +36,7 @@ public class Comment extends BaseTimeEntity {
         this.writer = writer;
     }
 
-    public void updateComment(CommentModifyRequestDto requestDto) {
-        this.content = requestDto.getContent();
+    public void updateComment(String content) {
+        this.content = content;
     }
 }

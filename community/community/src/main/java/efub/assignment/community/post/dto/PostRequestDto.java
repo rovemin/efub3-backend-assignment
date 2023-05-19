@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostRequestDto {
     private Long boardId;
-    private Long memberId;
-    private Boolean isPrivate;
     private String title;
     private String content;
+    private Long writerId;
+    private Boolean isPrivate;
 }
