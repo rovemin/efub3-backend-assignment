@@ -1,6 +1,7 @@
 package efub.assignment.community.post.domain;
 
 import efub.assignment.community.comment.domain.Comment;
+import efub.assignment.community.heart.domain.PostHeart;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.board.domain.Board;
 import efub.assignment.community.global.entity.BaseTimeEntity;
@@ -46,6 +47,10 @@ public class Post extends BaseTimeEntity {
     */
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostHeart> postHeartList = new ArrayList<>();
 
     @Builder
     public Post(Long postId, Board board, String title, String content, Member writer, Boolean isPrivate) {
