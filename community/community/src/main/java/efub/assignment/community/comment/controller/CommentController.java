@@ -12,13 +12,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor    // 생성자를 통한 의존관계 주입
-@RequestMapping("/comments")
+@RequestMapping("/comments/{commentId}")
 public class CommentController {
     private final CommentService commentService;
 
     // 댓글 수정
-    @PutMapping("/{commentId}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
     public CommentResponseDto updatePostComment(@PathVariable final Long commentId, @RequestBody @Valid final CommentRequestDto requestDto) {
         commentService.updateComment(requestDto, commentId);
         Comment comment = commentService.findCommentById(commentId);
@@ -26,4 +26,10 @@ public class CommentController {
     }
     
     // 댓글 삭제
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteComment(@PathVariable final Long commentId) {
+        commentService.deleteComment(commentId);
+        return "성공적으로 삭제되었습니다.";
+    }
 }

@@ -55,4 +55,10 @@ public class CommentService {
         Comment comment = findCommentById(commentId);
         comment.updateComment(requestDto.getContent());
     }
+
+    // 댓글 삭제
+    public void deleteComment(Long commentId) {
+        Comment comment = findCommentById(commentId);
+        commentRepository.delete(comment);
+    }
 }
