@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @RestController
 @RequestMapping("/messages")
@@ -25,4 +28,10 @@ public class MessageController {
     }
 
     // 쪽지방 내 쪽지 목록 조회
+    @GetMapping("/{sender}/{receiver}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<MessageResponseDto> messageListFind(@PathVariable Long sender, @PathVariable Long receiver) {
+        List<Message> messageList = messageService.findMessageList(sender, receiver);
+        return messageList.stream().map(MessageResponseDto::from).collect(Collectors.toList());
+    }
 }

@@ -2,6 +2,7 @@ package efub.assignment.community.message.service;
 
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
+import efub.assignment.community.member.service.MemberService;
 import efub.assignment.community.message.domain.Message;
 import efub.assignment.community.message.dto.MessageRequestDto;
 import efub.assignment.community.message.repository.MessageRepository;
@@ -12,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional
@@ -20,6 +23,7 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final MessageRoomRepository messageRoomRepository;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     public Message createMessage(MessageRequestDto requestDto) {
         MessageRoom messageRoom = messageRoomRepository.findById(requestDto.getMessageRoomId())
@@ -39,5 +43,12 @@ public class MessageService {
                         .message(requestDto.getMessage())
                         .build()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<Message> findMessageList(Long senderId, Long receiverId) {
+        Member sender = memberService.findMemberById(senderId);
+        Member receiver = memberService.findMemberById(receiverId);
+        return messageRepository.findAllBySenderAndReceiver(sender, receiver);
     }
 }
