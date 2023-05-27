@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-    @Transactional
     public Board addBoard(BoardRequestDto requestDto) {
         Member master = memberRepository.findById(requestDto.getMasterId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
@@ -33,10 +33,12 @@ public class BoardService {
         );
     }
 
+    @Transactional(readOnly = true)
     public List<Board> findBoardList() {
         return boardRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Board findBoard(Long boardId) {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시판입니다."));
