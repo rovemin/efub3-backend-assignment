@@ -26,7 +26,7 @@ public class MessageRoomController {
 
     // 쪽지방 생성
     @PostMapping
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public MessageRoomResponseDto messageRoomCreate(@RequestBody MessageRoomRequestDto requestDto) {
         MessageRoom messageRoom = messageRoomService.createMessageRoom(requestDto);
         return MessageRoomResponseDto.from(messageRoom);
@@ -43,8 +43,17 @@ public class MessageRoomController {
 
     // 쪽지방 목록 조회
     @GetMapping("/{memberId}")
+    @ResponseStatus(value = HttpStatus.OK)
     public List<MessageRoomResponseDto> messageRoomListFind(@PathVariable Long memberId) {
         List<MessageRoom> messageRoomList = messageRoomService.findMessageRoomList(memberId);
         return messageRoomList.stream().map(MessageRoomResponseDto::from).collect(Collectors.toList());
+    }
+
+    // 쪽지방 삭제
+    @DeleteMapping("/{messageRoomId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String messageRoomRemove(@PathVariable Long messageRoomId) {
+        messageRoomService.removeMessageRoom(messageRoomId);
+        return "성공적으로 삭제되었습니다.";
     }
 }

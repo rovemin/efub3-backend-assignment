@@ -1,5 +1,6 @@
 package efub.assignment.community.messageroom.service;
 
+import efub.assignment.community.board.domain.Board;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
 import efub.assignment.community.member.service.MemberService;
@@ -65,5 +66,11 @@ public class MessageRoomService {
     public List<MessageRoom> findMessageRoomList(Long memberId) {
         Member member = memberService.findMemberById(memberId);
         return messageRoomRepository.findAllBySender(member);
+    }
+
+    public void removeMessageRoom(Long messageRoomId) {
+        MessageRoom messageRoom = messageRoomRepository.findById(messageRoomId)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
+        messageRoomRepository.delete(messageRoom);
     }
 }
