@@ -6,10 +6,15 @@ import efub.assignment.community.messageroom.dto.MessageRoomExistsRequestDto;
 import efub.assignment.community.messageroom.dto.MessageRoomRequestDto;
 import efub.assignment.community.messageroom.dto.MessageRoomResponseDto;
 import efub.assignment.community.messageroom.service.MessageRoomService;
+import efub.assignment.community.post.domain.Post;
+import efub.assignment.community.post.dto.PostResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -24,7 +29,7 @@ public class MessageRoomController {
     @ResponseStatus(value = HttpStatus.OK)
     public MessageRoomResponseDto messageRoomCreate(@RequestBody MessageRoomRequestDto requestDto) {
         MessageRoom messageRoom = messageRoomService.createMessageRoom(requestDto);
-        return new MessageRoomResponseDto(messageRoom);
+        return MessageRoomResponseDto.from(messageRoom);
     }
 
     // 쪽지방 여부 조회
@@ -37,4 +42,9 @@ public class MessageRoomController {
     }
 
     // 쪽지방 목록 조회
+    @GetMapping("/{memberId}")
+    public List<MessageRoomResponseDto> messageRoomListFind(@PathVariable Long memberId) {
+        List<MessageRoom> messageRoomList = messageRoomService.findMessageRoomList(memberId);
+        return messageRoomList.stream().map(MessageRoomResponseDto::from).collect(Collectors.toList());
+    }
 }

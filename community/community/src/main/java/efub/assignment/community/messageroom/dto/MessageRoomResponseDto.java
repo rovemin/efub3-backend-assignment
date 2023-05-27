@@ -17,12 +17,24 @@ public class MessageRoomResponseDto {
     private Long postId;
     private LocalDateTime createdDate;
 
-    public MessageRoomResponseDto(MessageRoom messageRoom) {
-        this.messageRoomId = messageRoom.getMessageRoomId();
-        this.sender = messageRoom.getSender().getMemberId();
-        this.receiver = messageRoom.getReceiver().getMemberId();
-        this.firstMessage = messageRoom.getFirstMessage();
-        this.postId = messageRoom.getPost().getPostId();
-        this.createdDate = messageRoom.getCreatedDate();
+    public MessageRoomResponseDto(Long messageRoomId, Long sender, Long receiver, String firstMessage,
+                                  Long postId, LocalDateTime createdDate) {
+        this.messageRoomId = messageRoomId;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.firstMessage = firstMessage;
+        this.postId = postId;
+        this.createdDate = createdDate;
+    }
+
+    public static MessageRoomResponseDto from(MessageRoom messageRoom) {
+        return new MessageRoomResponseDto(
+                messageRoom.getMessageRoomId(),
+                messageRoom.getSender().getMemberId(),
+                messageRoom.getReceiver().getMemberId(),
+                messageRoom.getFirstMessage(),
+                messageRoom.getPost().getPostId(),
+                messageRoom.getCreatedDate()
+        );
     }
 }

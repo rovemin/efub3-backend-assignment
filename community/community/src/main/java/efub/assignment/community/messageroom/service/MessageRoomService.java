@@ -2,6 +2,7 @@ package efub.assignment.community.messageroom.service;
 
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
+import efub.assignment.community.member.service.MemberService;
 import efub.assignment.community.messageroom.domain.MessageRoom;
 import efub.assignment.community.messageroom.dto.MessageRoomExistsRequestDto;
 import efub.assignment.community.messageroom.dto.MessageRoomRequestDto;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional
@@ -21,6 +24,7 @@ public class MessageRoomService {
     private final MessageRoomRepository messageRoomRepository;
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final MemberService memberService;
 
     public MessageRoom createMessageRoom(MessageRoomRequestDto requestDto) {
         Member sender = memberRepository.findById(requestDto.getSenderId())
@@ -42,6 +46,7 @@ public class MessageRoomService {
         );
     }
 
+    @Transactional(readOnly = true)
     public MessageRoom existsMessageRoom(MessageRoomExistsRequestDto requestDto) {
         Member sender = memberRepository.findById(requestDto.getSenderId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
@@ -54,5 +59,11 @@ public class MessageRoomService {
 
         return messageRoomRepository.existsBySenderAndReceiverAndPost(
                                      sender.getMemberId(), receiver.getMemberId(), post.getPostId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<MessageRoom> findMessageRoomList(Long memberId) {
+        Member member = memberService.findMemberById(memberId);
+        return messageRoomRepository.findAllBySender(member);
     }
 }
