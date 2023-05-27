@@ -1,6 +1,5 @@
 package efub.assignment.community.messageroom.service;
 
-import efub.assignment.community.board.domain.Board;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
 import efub.assignment.community.member.service.MemberService;
