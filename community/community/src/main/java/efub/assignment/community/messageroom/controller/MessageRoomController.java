@@ -29,6 +29,7 @@ public class MessageRoomController {
 
     // 쪽지방 여부 조회
     @GetMapping("/exists")
+    @ResponseStatus(value = HttpStatus.OK)
     public Long messageRoomExists(@RequestBody MessageRoomExistsRequestDto requestDto) {
         MessageRoom messageRoom = messageRoomService.existsMessageRoom(requestDto);
         Long messageRoomId = messageRoom.getMessageRoomId();
