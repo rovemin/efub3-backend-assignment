@@ -43,14 +43,14 @@ public class BoardService {
     }
 
     public Board modifyBoard(Long boardId, BoardModifyRequestDto requestDto) {
-        Board board = boardRepository.findByBoardIdAndAndMaster_MemberId(boardId, requestDto.getMasterId())
+        Board board = boardRepository.findByBoardIdAndMaster_MemberId(boardId, requestDto.getMasterId())
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
         board.updateBoard(requestDto);
         return board;
     }
 
     public void removeBoard(Long boardId, Long memberId) {
-        Board board = boardRepository.findByBoardIdAndAndMaster_MemberId(boardId, memberId)
+        Board board = boardRepository.findByBoardIdAndMaster_MemberId(boardId, memberId)
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
         boardRepository.delete(board);
     }
