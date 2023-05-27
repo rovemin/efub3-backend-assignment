@@ -1,10 +1,9 @@
 package efub.assignment.community.messageroom.service;
 
-import efub.assignment.community.board.domain.Board;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
-import efub.assignment.community.member.service.MemberService;
 import efub.assignment.community.messageroom.domain.MessageRoom;
+import efub.assignment.community.messageroom.dto.MessageRoomExistsRequestDto;
 import efub.assignment.community.messageroom.dto.MessageRoomRequestDto;
 import efub.assignment.community.messageroom.repository.MessageRoomRepository;
 import efub.assignment.community.post.domain.Post;
@@ -41,5 +40,19 @@ public class MessageRoomService {
                         .post(postId)
                         .build()
         );
+    }
+
+    public MessageRoom existsMessageRoom(MessageRoomExistsRequestDto requestDto) {
+        Member sender = memberRepository.findById(requestDto.getSenderId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
+
+        Member receiver = memberRepository.findById(requestDto.getReceiverId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
+
+        Post post = postRepository.findById(requestDto.getPostId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        return messageRoomRepository.existsBySenderAndReceiverAndPost(
+                                     sender.getMemberId(), receiver.getMemberId(), post.getPostId());
     }
 }
