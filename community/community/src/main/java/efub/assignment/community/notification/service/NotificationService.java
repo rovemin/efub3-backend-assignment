@@ -24,6 +24,6 @@ public class NotificationService {
     @Transactional(readOnly = true)
     public List<Notification> findNotificationList(Long memberId) {
         Member member = memberService.findMemberById(memberId);
-        return notificationRepository.findAllByMemberId(memberId);
+        return notificationRepository.findAllByMember(memberId);
     }
 }

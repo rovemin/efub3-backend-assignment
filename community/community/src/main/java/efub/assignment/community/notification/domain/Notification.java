@@ -1,6 +1,7 @@
 package efub.assignment.community.notification.domain;
 
 import efub.assignment.community.global.entity.BaseTimeEntity;
+import efub.assignment.community.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +21,10 @@ public class Notification extends BaseTimeEntity {
     private String type;
 
     private String content;
+
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Builder
     public Notification(String type, String content) {
